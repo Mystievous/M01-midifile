@@ -1,8 +1,8 @@
+This is a fork of the library modified specifically for usage in the [M01-Converter](https://github.com/Mystievous/M01-Converter).<br/>
+The changes made are an attempt to reach parity with the 3DS version of that app's MIDI export function.
+
 Midifile: C++ MIDI file parsing library
 =======================================
-
-
-[![Travis Build Status](https://travis-ci.org/craigsapp/midifile.svg?branch=master)](https://travis-ci.org/craigsapp/midifile) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/oo393u60ut1rtbf3?svg=true)](https://ci.appveyor.com/project/craigsapp/midifile)
 
 Midifile is a library of C++ classes for reading/writing Standard
 MIDI files.  The library consists of 6 classes:
