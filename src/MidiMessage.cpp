@@ -1571,8 +1571,9 @@ void MidiMessage::setMetaContent(const std::string& content) {
 //   (meta message #0x51).
 //
 
-void MidiMessage::setMetaTempo(double tempo) {
-	int microseconds = (int)(60.0 / tempo * 1000000.0 + 0.5);
+void MidiMessage::setMetaTempo(int tempo) {
+	const int microseconds = 60 * 1000000 / tempo;
+	// int microseconds = (int)(60.0 / tempo * 1000000.0 + 0.5);
 	setTempoMicroseconds(microseconds);
 }
 

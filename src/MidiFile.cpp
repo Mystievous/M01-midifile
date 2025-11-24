@@ -606,6 +606,7 @@ bool MidiFile::write(std::ostream& out) {
 	for (int i=0; i<getNumTracks(); i++) {
 		trackdata.reserve(123456);   // Make the track data larger than the expected data input.
 		trackdata.clear();
+		unsigned char lastStatusByte = 0x00;
 		for (int j=0; j<(int)m_events[i]->size(); j++) {
 			MidiEvent& event = (*m_events[i]).at(j);
 			if (event.empty()) {
@@ -646,6 +647,21 @@ bool MidiFile::write(std::ostream& out) {
 				// non-sysex type of message, so just output the
 				// bytes of the message:
 				for (int k=0; k<(int)event.size(); k++) {
+					unsigned char currentByte = event[k];
+					// Check first byte for running status.
+					if (k == 0)
+					{
+						// If the first byte equals the last status, use running status
+						// (skip sending the status byte). Do not apply running status to
+						// meta events (0xFF).
+						bool runningStatus = (currentByte == lastStatusByte) && (currentByte != 0xFF);
+						if (runningStatus)
+						{
+							// skip sending the status byte
+							continue;
+						}
+						lastStatusByte = currentByte;
+					}
 					trackdata.push_back(event[k]);
 				}
 			}
